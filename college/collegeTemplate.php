@@ -100,7 +100,7 @@
                                     <?php print_r($txtarr[$i]); ?>
                                     <img src="./college/uploads/<?php print_r($imgarr[$i]); ?>" height="100px" width="100px">
                                     <button class="btn btn-danger remove" removekey="<?php echo $i; ?>" btn_id ="<?php echo $clgtmp['id']; ?>" type="button">Remove</button>
-                                <div>
+                                </div>
                                 <?php 
                                     } 
                                 }
@@ -202,7 +202,8 @@
                    
                     <input type="hidden" name="clg_id" id="clg_id" value="<?php echo $userid; ?>">
                     <input type="hidden" name="aff_by" id="aff_by" value="<?php echo $modid; ?>">
-                    <input type="hidden" name="id" id="id" value="<?php echo $clgtmp['id']; ?>">
+                    <input type="hidden" name="id" id="id" value="<?php if(isset($clgtmp['id'])){
+                        echo $clgtmp['id']; }?>">
 
                 <!-- </div> -->
                 <input type="submit" value="submit" class="btn btn-primary mt-2" id="submit">

@@ -2,8 +2,9 @@
 
     <div class="nk-content">
         <?php 
-            $gettmp = $dbConn->getTemplate();
-            // print_r($clgtmp);
+           if(isset($userid)){
+                $gettmp = $dbConn->getTemplate($userid);
+           }
         ?> 
         <table class="table table-hover">
             <thead>

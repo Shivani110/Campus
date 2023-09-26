@@ -58,9 +58,9 @@
             return $data;
         }
 
-        public function getTemplate(){
-
-            $query = "Select * from college_template";
+        public function getTemplate($id){
+            // print_r($id);
+            $query = "Select * from college_template where clg_id='$id'";
             $result = mysqli_query($this->conn,$query);
             $data = array();
             if($result->num_rows>0){
@@ -81,10 +81,6 @@
                 // print_r($row);
                 return $row;
             }
-        }
-
-        public function updateTemplate($id){
-           
         }
 
     }
