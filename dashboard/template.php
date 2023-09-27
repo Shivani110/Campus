@@ -4,10 +4,12 @@
 
     <div class="nk-content ">
         <?php 
+        // print_r($_GET['id']);
             if(isset($_GET['id'])){
                 $id = $_GET['id'];
                 
                 $tmp = $dbConn->template($id);
+                // print_r($tmp);
             }
         ?>
         <div class="container-fluid">
@@ -23,9 +25,7 @@
                     <div class="nk-block">
                         <div class="row g-gs">
                             <?php foreach($tmp as $data) {
-                                // echo '<pre>';
-                                // print_r($data);
-                                // echo '</pre>';
+                                    
                                 ?>
                                 <div class="col-sm-6 col-lg-4 col-xxl-3">
                                     <div class="gallery card card-bordered">
@@ -33,7 +33,7 @@
                                             <div class="user-card">
                                                 <img src="./college/uploads/<?php echo $data['logo'];?>" height="100px" width="100px">
                                                 <div>
-                                                    <a href="./dashboard/templateview.php" class="btn btn-p-0 btn-nofocus">View</a>
+                                                    <a href="./dashboard/templateview.php?id=<?php echo $data['id']; ?>" class="btn btn-p-0 btn-nofocus">View</a>
                                                 </div>
                                             </div>
                                         </div>

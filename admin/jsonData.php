@@ -19,7 +19,7 @@
 
             if($result->num_rows>0){
                 $row = mysqli_fetch_array($result);
-                print_r($row);
+                // print_r($row);
                 $id = $row['id'];
                 $role = $row['user_type'];
 
@@ -65,7 +65,7 @@
         $id = $_GET['id'];
        // print_r($id);
         $deleteuser = $dbConn->deleteUser($id);
-       
+       print_r($deleteuser);
     }
     
 ?>

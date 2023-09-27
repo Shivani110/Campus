@@ -10,7 +10,6 @@
    
     if($data){
         $moderator = $dbConn->getCollege($data);
-        //print_r($moderator);
     }
     
 ?>
@@ -74,14 +73,16 @@
                                 </li>
                                
                                 <?php foreach($moderator as $mod){
-                                      $userid = $mod['user_id'];
+                                        $clg_id = $mod['id'];
+                                        // print_r($clg_id);
                                       $modid = $mod['moderator'];
-
-                                      if($userid == $modid){?>
+                                    
+                                        if($user_id == $modid){?>
                                         <li class="nk-menu-heading">
                                             <h6 class="overline-title text-primary-alt">Dashboards</h6>
                                             <a href="college/collegeTemplate.php" class="nk-menu-link"><span class="nk-menu-text">College Template</span></a>
                                             <a href="college/templatelist.php" class="nk-menu-link"><span class="nk-menu-text">College Template List</span></a>
+                                            <a href="college/addpost.php" class="nk-menu-link"><span class="nk-menu-text">Add Post</span></a>
                                         </li>
                                 <?php }
                                   }

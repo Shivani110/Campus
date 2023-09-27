@@ -41,12 +41,7 @@
 
         public function getCollege($data){
             $user_id = $data[0];
-            $user_type = $data[1];
-           
-            $query = "Select * from users 
-                    INNER JOIN staff ON users.id=staff.user_id
-                    INNER JOIN college_name ON college_name.id=staff.college_name where users.user_type='$user_type' AND staff.user_id='$user_id'";
-
+            $query = "Select college_name.* from college_name INNER JOIN staff ON staff.college_name=college_name.id where staff.user_id='$user_id'";
             $result = mysqli_query($this->conn,$query);
             $data = array();
 
@@ -82,10 +77,9 @@
                 return $row;
             }
         }
-
     }
     
 
     $dbConn = new StaffController(DB_HOST,DB_USER,DB_PASSWORD,DB_DATABSE);
-
+    
 ?>

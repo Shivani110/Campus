@@ -95,7 +95,10 @@
             $result = mysqli_query($this->conn,$query);
 
             if($result == true){
-                header("location:collegeTemplate.php");
+                session_start();
+                $_SESSION['success']="College Template Successfully Created";
+                print_r($_SESSION);
+                // header("location:collegeTemplate.php");
             }else{
                 echo mysqli_error($this->conn);
             }
@@ -230,10 +233,6 @@
     }
 
     $data = array($post,$files);
-    // echo '<pre>';
-    // print_r($data);
-    // echo '</pre>';
-    // die();
 
     if($data){
         if($data[0]['id'] != ''){

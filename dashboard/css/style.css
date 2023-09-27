@@ -83,7 +83,7 @@ ul,ol{
 }
 
 .white-text {
-	color: #FFF;
+	color:#374050;
 }
 
 blockquote {
@@ -227,7 +227,7 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 }
 
 .navbar-brand .logo > img {
-	max-height:30px;
+	max-height:50px;
 }
 
 @media only screen and (max-width: 767px) {

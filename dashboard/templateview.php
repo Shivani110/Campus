@@ -1,3 +1,12 @@
+<?php include_once("DashboardController.php"); 
+		// print_r($_GET['id']);
+
+		if(isset($_GET['id'])){
+			$id = $_GET['id'];
+
+			$clg = $dbConn->collegeTemplate($id);
+		}
+?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -29,7 +38,7 @@
 
     </head>
 	<body>
-
+			
 		<!-- Header -->
 		<header id="header" class="transparent-nav">
 			<div class="container">
@@ -37,9 +46,7 @@
 				<div class="navbar-header">
 					<!-- Logo -->
 					<div class="navbar-brand">
-						<a class="logo" href="index.html">
-							<img src="./img/logo-alt.png" alt="logo">
-						</a>
+						<img src="http://localhost/shivani/Campus/college/uploads/<?php print_r($clg['logo']);?>" alt="logo">
 					</div>
 					<!-- /Logo -->
 
@@ -53,11 +60,11 @@
 				<!-- Navigation -->
 				<nav id="nav">
 					<ul class="main-menu nav navbar-nav navbar-right">
-						<li><a href="index.html">Home</a></li>
+						<li><a href="#">Home</a></li>
 						<li><a href="#">About</a></li>
 						<li><a href="#">Courses</a></li>
-						<li><a href="blog.html">Blog</a></li>
-						<li><a href="contact.html">Contact</a></li>
+						<li><a href="#">Blog</a></li>
+						<li><a href="#">Contact</a></li>
 					</ul>
 				</nav>
 				<!-- /Navigation -->
@@ -70,16 +77,16 @@
 		<div id="home" class="hero-area">
 
 			<!-- Backgound Image -->
-			<div class="bg-image bg-parallax overlay" style="background-image:url(./img/home-background.jpg)"></div>
+			<div class="bg-image bg-parallax overlay" style="background-image:url(http://localhost/shivani/Campus/college/uploads/<?php print_r($clg['first_section_background_img']); ?>)"></div>
 			<!-- /Backgound Image -->
 
 			<div class="home-wrapper">
 				<div class="container">
 					<div class="row">
 						<div class="col-md-8">
-							<h1 class="white-text">Edusite Free Online Training Courses</h1>
-							<p class="lead white-text">Libris vivendo eloquentiam ex ius, nec id splendide abhorreant, eu pro alii error homero.</p>
-							<a class="main-button icon-button" href="#">Get Started!</a>
+							<h1 class="white-text"><?php print_r($clg['first_section_title']); ?></h1>
+							<?php print_r($clg['first_section_description']); ?>
+							<a class="main-button icon-button" href="#"><?php print_r($clg['first_section_button_text']); ?></a>
 						</div>
 					</div>
 				</div>
@@ -96,48 +103,15 @@
 
 				<!-- row -->
 				<div class="row">
-
 					<div class="col-md-6">
 						<div class="section-header">
-							<h2>Welcome to Edusite</h2>
-							<p class="lead">Libris vivendo eloquentiam ex ius, nec id splendide abhorreant.</p>
+							<?php print_r($clg['second_section_left_textarea']); ?>
 						</div>
-
-						<!-- feature -->
-						<div class="feature">
-							<i class="feature-icon fa fa-flask"></i>
-							<div class="feature-content">
-								<h4>Online Courses </h4>
-								<p>Ceteros fuisset mei no, soleat epicurei adipiscing ne vis. Et his suas veniam nominati.</p>
-							</div>
-						</div>
-						<!-- /feature -->
-
-						<!-- feature -->
-						<div class="feature">
-							<i class="feature-icon fa fa-users"></i>
-							<div class="feature-content">
-								<h4>Expert Teachers</h4>
-								<p>Ceteros fuisset mei no, soleat epicurei adipiscing ne vis. Et his suas veniam nominati.</p>
-							</div>
-						</div>
-						<!-- /feature -->
-
-						<!-- feature -->
-						<div class="feature">
-							<i class="feature-icon fa fa-comments"></i>
-							<div class="feature-content">
-								<h4>Community</h4>
-								<p>Ceteros fuisset mei no, soleat epicurei adipiscing ne vis. Et his suas veniam nominati.</p>
-							</div>
-						</div>
-						<!-- /feature -->
-
 					</div>
 
 					<div class="col-md-6">
 						<div class="about-img">
-							<img src="./img/about.png" alt="">
+							<img src="http://localhost/shivani/Campus/college/uploads/<?php print_r($clg['second_section_right_image']);?>">
 						</div>
 					</div>
 
@@ -158,8 +132,8 @@
 				<!-- row -->
 				<div class="row">
 					<div class="section-header text-center">
-						<h2>Explore Courses</h2>
-						<p class="lead">Libris vivendo eloquentiam ex ius, nec id splendide abhorreant.</p>
+						<h2><?php print_r($clg['third_section_title']); ?></h2>
+						<p class="lead"><?php print_r($clg['third_section_subtitle']); ?></p>
 					</div>
 				</div>
 				<!-- /row -->
@@ -171,148 +145,29 @@
 					<div class="row">
 
 						<!-- single course -->
-						<div class="col-md-3 col-sm-6 col-xs-6">
-							<div class="course">
-								<a href="#" class="course-img">
-									<img src="./img/course01.jpg" alt="">
-									<i class="course-link-icon fa fa-link"></i>
-								</a>
-								<a class="course-title" href="#">Beginner to Pro in Excel: Financial Modeling and Valuation</a>
-								<div class="course-details">
-									<span class="course-category">Business</span>
-									<span class="course-price course-free">Free</span>
-								</div>
-							</div>
-						</div>
-						<!-- /single course -->
+						<?php 
+							$images = $clg['third_section_image'];
+							$text = $clg['third_section_image_txt'];
 
-						<!-- single course -->
-						<div class="col-md-3 col-sm-6 col-xs-6">
-							<div class="course">
-								<a href="#" class="course-img">
-									<img src="./img/course02.jpg" alt="">
-									<i class="course-link-icon fa fa-link"></i>
-								</a>
-								<a class="course-title" href="#">Introduction to CSS </a>
-								<div class="course-details">
-									<span class="course-category">Web Design</span>
-									<span class="course-price course-premium">Premium</span>
-								</div>
-							</div>
-						</div>
-						<!-- /single course -->
+							$imgarr = json_decode($images);
+							$txtarr = json_decode($text);
 
-						<!-- single course -->
-						<div class="col-md-3 col-sm-6 col-xs-6">
-							<div class="course">
-								<a href="#" class="course-img">
-									<img src="./img/course03.jpg" alt="">
-									<i class="course-link-icon fa fa-link"></i>
-								</a>
-								<a class="course-title" href="#">The Ultimate Drawing Course | From Beginner To Advanced</a>
-								<div class="course-details">
-									<span class="course-category">Drawing</span>
-									<span class="course-price course-premium">Premium</span>
+							for($i=0;$i<count($imgarr);$i++){?>
+								<div class="col-md-3 col-sm-6 col-xs-6">
+									<div class="course">
+										<img src="http://localhost/shivani/Campus/college/uploads/<?php print_r($imgarr[$i]);?>" height="200px" width="200px">
+										<div>
+											<?php print_r($txtarr[$i]); ?>
+										</div>
+									</div>
 								</div>
-							</div>
-						</div>
-						<!-- /single course -->
-
-						<div class="col-md-3 col-sm-6 col-xs-6">
-							<div class="course">
-								<a href="#" class="course-img">
-									<img src="./img/course04.jpg" alt="">
-									<i class="course-link-icon fa fa-link"></i>
-								</a>
-								<a class="course-title" href="#">The Complete Web Development Course</a>
-								<div class="course-details">
-									<span class="course-category">Web Development</span>
-									<span class="course-price course-free">Free</span>
-								</div>
-							</div>
-						</div>
-						<!-- /single course -->
-
+							<?php	
+								}
+							?>
 					</div>
-					<!-- /row -->
-
-					<!-- row -->
 					<div class="row">
-
-						<!-- single course -->
-						<div class="col-md-3 col-sm-6 col-xs-6">
-							<div class="course">
-								<a href="#" class="course-img">
-									<img src="./img/course05.jpg" alt="">
-									<i class="course-link-icon fa fa-link"></i>
-								</a>
-								<a class="course-title" href="#">PHP Tips, Tricks, and Techniques</a>
-								<div class="course-details">
-									<span class="course-category">Web Development</span>
-									<span class="course-price course-free">Free</span>
-								</div>
-							</div>
-						</div>
-						<!-- /single course -->
-
-						<!-- single course -->
-						<div class="col-md-3 col-sm-6 col-xs-6">
-							<div class="course">
-								<a href="#" class="course-img">
-									<img src="./img/course06.jpg" alt="">
-									<i class="course-link-icon fa fa-link"></i>
-								</a>
-								<a class="course-title" href="#">All You Need To Know About Web Design</a>
-								<div class="course-details">
-									<span class="course-category">Web Design</span>
-									<span class="course-price course-free">Free</span>
-								</div>
-							</div>
-						</div>
-						<!-- /single course -->
-
-						<!-- single course -->
-						<div class="col-md-3 col-sm-6 col-xs-6">
-							<div class="course">
-								<a href="#" class="course-img">
-									<img src="./img/course07.jpg" alt="">
-									<i class="course-link-icon fa fa-link"></i>
-								</a>
-								<a class="course-title" href="#">How to Get Started in Photography</a>
-								<div class="course-details">
-									<span class="course-category">Photography</span>
-									<span class="course-price course-free">Free</span>
-								</div>
-							</div>
-						</div>
-						<!-- /single course -->
-
-
-						<!-- single course -->
-						<div class="col-md-3 col-sm-6 col-xs-6">
-							<div class="course">
-								<a href="#" class="course-img">
-									<img src="./img/course08.jpg" alt="">
-									<i class="course-link-icon fa fa-link"></i>
-								</a>
-								<a class="course-title" href="#">Typography From A to Z</a>
-								<div class="course-details">
-									<span class="course-category">Typography</span>
-									<span class="course-price course-free">Free</span>
-								</div>
-							</div>
-						</div>
-						<!-- /single course -->
-
-					</div>
-					<!-- /row -->
-
-				</div>
-				<!-- /courses -->
-
-				<div class="row">
 					<div class="center-btn">
-						<a class="main-button icon-button" href="#">More Courses</a>
+						<a class="main-button icon-button" href="#"><?php print_r($clg['third_section_button_txt']); ?></a>
 					</div>
 				</div>
 
@@ -326,7 +181,7 @@
 		<div id="cta" class="section">
 
 			<!-- Backgound Image -->
-			<div class="bg-image bg-parallax overlay" style="background-image:url(./img/cta1-background.jpg)"></div>
+			<div class="bg-image bg-parallax overlay" style="background-image:url(http://localhost/shivani/Campus/college/uploads/<?php print_r($clg['fourth_section_background_img']); ?>)"></div>
 			<!-- /Backgound Image -->
 
 			<!-- container -->
@@ -336,9 +191,9 @@
 				<div class="row">
 
 					<div class="col-md-6">
-						<h2 class="white-text">Ceteros fuisset mei no, soleat epicurei adipiscing ne vis.</h2>
-						<p class="lead white-text">Ceteros fuisset mei no, soleat epicurei adipiscing ne vis. Et his suas veniam nominati.</p>
-						<a class="main-button icon-button" href="#">Get Started!</a>
+						<h2 class="white-text"><?php print_r($clg['fourth_section_title']); ?></h2>
+						<?php print_r($clg['fourth_section_description']); ?>
+						<a class="main-button icon-button" href="#"><?php print_r($clg['fourth_section_button_txt']); ?></a>
 					</div>
 
 				</div>
@@ -355,107 +210,18 @@
 
 			<!-- container -->
 			<div class="container">
-
-				<!-- row -->
 				<div class="row">
 					<div class="section-header text-center">
-						<h2>Why Edusite</h2>
-						<p class="lead">Libris vivendo eloquentiam ex ius, nec id splendide abhorreant.</p>
+						<h2><?php print_r($clg['fifth_section_title']); ?></h2>
+						<p class="lead"><?php print_r($clg['fifth_section_subtitle']); ?></p>
+						<?php print_r($clg['fifth_section_textarea']); ?>
 					</div>
-
-					<!-- feature -->
-					<div class="col-md-4">
-						<div class="feature">
-							<i class="feature-icon fa fa-flask"></i>
-							<div class="feature-content">
-								<h4>Online Courses</h4>
-								<p>Ceteros fuisset mei no, soleat epicurei adipiscing ne vis. Et his suas veniam nominati.</p>
-							</div>
-						</div>
-					</div>
-					<!-- /feature -->
-
-					<!-- feature -->
-					<div class="col-md-4">
-						<div class="feature">
-							<i class="feature-icon fa fa-users"></i>
-							<div class="feature-content">
-								<h4>Expert Teachers</h4>
-								<p>Ceteros fuisset mei no, soleat epicurei adipiscing ne vis. Et his suas veniam nominati.</p>
-							</div>
-						</div>
-					</div>
-					<!-- /feature -->
-
-					<!-- feature -->
-					<div class="col-md-4">
-						<div class="feature">
-							<i class="feature-icon fa fa-comments"></i>
-							<div class="feature-content">
-								<h4>Community</h4>
-								<p>Ceteros fuisset mei no, soleat epicurei adipiscing ne vis. Et his suas veniam nominati.</p>
-							</div>
-						</div>
-					</div>
-					<!-- /feature -->
-
 				</div>
-				<!-- /row -->
-
-				<hr class="section-hr">
-
-				<!-- row -->
-				<div class="row">
-
-					<div class="col-md-6">
-						<h3>Persius imperdiet incorrupte et qui, munere nusquam et nec.</h3>
-						<p class="lead">Libris vivendo eloquentiam ex ius, nec id splendide abhorreant.</p>
-						<p>No vel facete sententiae, quodsi dolores no quo, pri ex tamquam interesset necessitatibus. Te denique cotidieque delicatissimi sed. Eu doming epicurei duo. Sit ea perfecto deseruisse theophrastus. At sed malis hendrerit, elitr deseruisse in sit, sit ei facilisi mediocrem.</p>
-					</div>
-
-					<div class="col-md-5 col-md-offset-1">
-						<a class="about-video" href="#">
-							<img src="./img/about-video.jpg" alt="">
-							<i class="play-icon fa fa-play"></i>
-						</a>
-					</div>
-
-				</div>
-				<!-- /row -->
-
 			</div>
 			<!-- /container -->
 
 		</div>
-		<!-- /Why us -->
-
-		<!-- Contact CTA -->
-		<div id="contact-cta" class="section">
-
-			<!-- Backgound Image -->
-			<div class="bg-image bg-parallax overlay" style="background-image:url(./img/cta2-background.jpg)"></div>
-			<!-- Backgound Image -->
-
-			<!-- container -->
-			<div class="container">
-
-				<!-- row -->
-				<div class="row">
-
-					<div class="col-md-8 col-md-offset-2 text-center">
-						<h2 class="white-text">Contact Us</h2>
-						<p class="lead white-text">Libris vivendo eloquentiam ex ius, nec id splendide abhorreant.</p>
-						<a class="main-button icon-button" href="#">Contact Us Now</a>
-					</div>
-
-				</div>
-				<!-- /row -->
-
-			</div>
-			<!-- /container -->
-
-		</div>
-		<!-- /Contact CTA -->
+		
 
 		<!-- Footer -->
 		<footer id="footer" class="section">
@@ -469,9 +235,7 @@
 					<!-- footer logo -->
 					<div class="col-md-6">
 						<div class="footer-logo">
-							<a class="logo" href="index.html">
-								<img src="./img/logo.png" alt="logo">
-							</a>
+							<img src="http://localhost/shivani/Campus/college/uploads/<?php print_r($clg['logo']);?>" alt="logo">
 						</div>
 					</div>
 					<!-- footer logo -->
@@ -479,11 +243,11 @@
 					<!-- footer nav -->
 					<div class="col-md-6">
 						<ul class="footer-nav">
-							<li><a href="index.html">Home</a></li>
+							<li><a href="#">Home</a></li>
 							<li><a href="#">About</a></li>
 							<li><a href="#">Courses</a></li>
-							<li><a href="blog.html">Blog</a></li>
-							<li><a href="contact.html">Contact</a></li>
+							<li><a href="#">Blog</a></li>
+							<li><a href="#">Contact</a></li>
 						</ul>
 					</div>
 					<!-- /footer nav -->
@@ -497,12 +261,22 @@
 					<!-- social -->
 					<div class="col-md-4 col-md-push-8">
 						<ul class="footer-social">
-							<li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
-							<li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
-							<li><a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a></li>
-							<li><a href="#" class="instagram"><i class="fa fa-instagram"></i></a></li>
-							<li><a href="#" class="youtube"><i class="fa fa-youtube"></i></a></li>
-							<li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></li>
+						<?php if($clg['last_section_fb_link'] != null){?>
+							<li><a href="<?php print_r($clg['last_section_fb_link']); ?>" class="facebook"><i class="fa fa-facebook"></i></a></li>
+						<?php
+						}?>
+						<?php if($clg['last_section_twitter_link'] != null){?>
+							<li><a href="<?php print_r($clg['last_section_twitter_link'])?>" class="twitter"><i class="fa fa-twitter"></i></a></li>
+						<?php
+						}?>
+						<?php if($clg['last_section_instagram_link'] != null){?>
+							<li><a href="<?php print_r($clg['last_section_instagram_link']); ?>" class="instagram"><i class="fa fa-instagram"></i></a></li>
+						<?php
+						}?>
+						<?php if($clg['last_section_linkedin_link'] != null){?>
+							<li><a href="<?php print_r($clg['last_section_linkedin_link']); ?>" class="linkedin"><i class="fa fa-linkedin"></i></a></li>
+						<?php
+						}?>	
 						</ul>
 					</div>
 					<!-- /social -->
@@ -510,7 +284,7 @@
 					<!-- copyright -->
 					<div class="col-md-8 col-md-pull-4">
 						<div class="footer-copyright">
-							<span>&copy; Copyright 2018. All Rights Reserved. | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com">Colorlib</a></span>
+							<?php print_r($clg['last_section_textarea']);?>
 						</div>
 					</div>
 					<!-- /copyright -->

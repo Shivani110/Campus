@@ -200,7 +200,7 @@
                         }?>">
                     </div>
                    
-                    <input type="hidden" name="clg_id" id="clg_id" value="<?php echo $userid; ?>">
+                    <input type="hidden" name="clg_id" id="clg_id" value="<?php echo $clg_id; ?>">
                     <input type="hidden" name="aff_by" id="aff_by" value="<?php echo $modid; ?>">
                     <input type="hidden" name="id" id="id" value="<?php if(isset($clgtmp['id'])){
                         echo $clgtmp['id']; }?>">
@@ -247,6 +247,7 @@
         });
     });
 
+    
 
 </script>
 
