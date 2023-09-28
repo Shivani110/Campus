@@ -9,9 +9,9 @@
     <?php 
        if(isset($_GET['id'])){
             $id = $_GET['id'];
-            
             $clgtmp = $dbConn->getData($id);
         }
+
     ?>
         <div class="nk-content col-8">
             <form method="post" id="myform" enctype="multipart/form-data" action="./college/addTemplate.php">
@@ -240,15 +240,204 @@
             data:data,
             success:function(response){
                 NioApp.Toast('Successfully Removed....','info',{position:'top-right'});
-                setTimeout(() =>{
-                    location.reload();
-                },1000);
+               
             }
         });
     });
 
-    
+    $(document).ready(function(){
+        var id = $('#id').val();
+        if(id != ''){
+                $('#myform').validate({
+                rules:{
+                    first_title:{
+                        required:true
+                    },
+                    first_des:{
+                        required:true
+                    },
+                    first_btn:{
+                        required:true
+                    },
+                    second_text:{
+                        required:true
+                    },
+                    third_title:{
+                        required:true
+                    },
+                    third_sub_title:{
+                        required:true
+                    },
+                    third_btn_txt:{
+                        required:true
+                    },
+                    fourth_title:{
+                        required:true
+                    },
+                    fourth_des:{
+                        required:true
+                    },
+                    fourth_btn_txt:{
+                        required:true
+                    },
+                    fifth_title:{
+                        required:true
+                    },
+                    fifth_subtitle:{
+                        required:true
+                    },
+                    fifth_text:{
+                        required:true
+                    },
+                    last_text:{
+                        required:true
+                    },
+                    fb_link:{
+                        required:true
+                    },
+                    twitter_link:{
+                        required:true
+                    },
+                    insta_link:{
+                        required:true
+                    },
+                    linkdn_link:{
+                        required:true
+                    }
+                },
+                messages:{
+                    first_title:"This field is required",
+                    first_des:"This field is required",
+                    first_btn:"This field is required",
+                    second_text:"This field is required",
+                    third_title:"This field is required",
+                    third_sub_title:"This field is required",
+                    third_btn_txt:"This field is required",
+                    fourth_title:"This field is required",
+                    fourth_des:"This field is required",
+                    fourth_btn_txt:"This field is required",
+                    fifth_title:"This field is required",
+                    fifth_subtitle:"This field is required",
+                    fifth_text:"This field is required",
+                    last_text:"This field is required",
+                    fb_link:"This field is required",
+                    twitter_link:"This field is required",
+                    insta_link:"This field is required",
+                    linkdn_link:"This field is required"
+                }
+            });
+        }else{
+            console.log('done');
+            $('#myform').validate({
+                rules:{
+                    logo:{
+                        required:true
+                    },
+                    first_title:{
+                        required:true
+                    },
+                    first_des:{
+                        required:true
+                    },
+                    first_back_img:{
+                        required:true
+                    },
+                    first_btn:{
+                        required:true
+                    },
+                    second_text:{
+                        required:true
+                    },
+                    second_img:{
+                        required:true
+                    },
+                    third_title:{
+                        required:true
+                    },
+                    third_sub_title:{
+                        required:true
+                    },
+                    third_btn_txt:{
+                        required:true
+                    },
+                    fourth_title:{
+                        required:true
+                    },
+                    fourth_des:{
+                        required:true
+                    },
+                    fourth_btn_txt:{
+                        required:true
+                    },
+                    fourth_back_img:{
+                        required:true
+                    },
+                    fifth_title:{
+                        required:true
+                    },
+                    fifth_subtitle:{
+                        required:true
+                    },
+                    fifth_text:{
+                        required:true
+                    },
+                    last_text:{
+                        required:true
+                    },
+                    fb_link:{
+                        required:true
+                    },
+                    twitter_link:{
+                        required:true
+                    },
+                    insta_link:{
+                        required:true
+                    },
+                    linkdn_link:{
+                        required:true
+                    }
+                },
+                messages:{
+                    logo:"Please select a file",
+                    first_title:"This field is required",
+                    first_des:"This field is required",
+                    first_back_img:"Please select a file",
+                    first_btn:"This field is required",
+                    second_text:"This field is required",
+                    second_img:"Please select a file",
+                    third_title:"This field is required",
+                    third_sub_title:"This field is required",
+                    third_btn_txt:"This field is required",
+                    fourth_title:"This field is required",
+                    fourth_des:"This field is required",
+                    fourth_btn_txt:"This field is required",
+                    fourth_back_img:"Please select a file",
+                    fifth_title:"This field is required",
+                    fifth_subtitle:"This field is required",
+                    fifth_text:"This field is required",
+                    last_text:"This field is required",
+                    fb_link:"This field is required",
+                    twitter_link:"This field is required",
+                    insta_link:"This field is required",
+                    linkdn_link:"This field is required"
+                }
+            });
+        }
+    });
+</script>
+
+<?php if(isset($_SESSION['success'])){?>
+<script>
+  
+  setTimeout(() =>{
+        NioApp.Toast('Successfully Created...','info',{position:'top-right'});
+    },1000);
 
 </script>
+<?php
+    }
+    unset($_SESSION['success']);
+
+?>
 
 <?php include_once('footer.php'); ?>

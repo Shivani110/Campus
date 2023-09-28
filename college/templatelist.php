@@ -45,7 +45,7 @@
                 dataType:"JSON",
                 success:function(response){
                 //    console.log(response);
-                   NioApp.Toast('Deleted', 'info', {position: 'top-right'});
+                   NioApp.Toast('Deleted....', 'info', {position: 'top-right'});
                     setTimeout(() => {
                         location.reload();
                     }, 1000);

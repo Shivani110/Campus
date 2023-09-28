@@ -55,7 +55,7 @@
                         <td><?php if($user['is_approved'] == 1){
                                echo "approved";
                         } ?></td>
-                        <td><a href="admin/jsonData.php?id=<?php echo $user['id'];?>" class="btn btn-danger">Delete</a></td>
+                        <td><button class="btn btn-danger" onclick="deleteUser(<?php echo $user['id'];?>)">Delete</button></td>
                     </tr>
                     <?php
                     }
@@ -63,5 +63,26 @@
             </tbody>
         </table>
     </div>
-
+<script>
+    const deleteUser = function(id){
+        var data = {
+            id:id,
+        }
+        $.ajax({
+            type: 'POST',
+            url:'./admin/jsonData.php',
+            data: JSON.stringify(data),
+            dataType:"JSON",
+            contentType:"application/json",
+            processData:false,
+            success:function(response){
+                // console.log(response);
+                NioApp.Toast('Deleted....','info',{position:'top-right'});
+                setTimeout(() =>{
+                    location.reload();
+                },1000);
+            }
+        });
+    }      
+</script>
 <?php include_once('footer.php'); ?>

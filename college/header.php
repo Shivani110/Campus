@@ -80,9 +80,28 @@
                                         if($user_id == $modid){?>
                                         <li class="nk-menu-heading">
                                             <h6 class="overline-title text-primary-alt">Dashboards</h6>
-                                            <a href="college/collegeTemplate.php" class="nk-menu-link"><span class="nk-menu-text">College Template</span></a>
-                                            <a href="college/templatelist.php" class="nk-menu-link"><span class="nk-menu-text">College Template List</span></a>
-                                            <a href="college/addpost.php" class="nk-menu-link"><span class="nk-menu-text">Add Post</span></a>
+                                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                                <span class="nk-menu-icon"></span>
+                                                <span class="nk-menu-text">College</span>
+                                            </a>
+                                            <ul class="nk-menu-sub" style="display: block;">
+                                                <li class="nk-menu-item">
+                                                    <a href="college/collegeTemplate.php" class="nk-menu-link"><span class="nk-menu-text">College Template</span></a>
+                                                    <a href="college/templatelist.php" class="nk-menu-link"><span class="nk-menu-text">College Template List</span></a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="nk-menu-heading">
+                                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                                <span class="nk-menu-icon"></span>
+                                                <span class="nk-menu-text">Posts</span>
+                                            </a>
+                                            <ul class="nk-menu-sub" style="display: block;">
+                                                <li class="nk-menu-item">
+                                                    <a href="college/addpost.php" class="nk-menu-link"><span class="nk-menu-text">Add Post</span></a>
+                                                    <a href="college/posts.php" class="nk-menu-link"><span class="nk-menu-text">All Posts</span></a>
+                                                </li>
+                                            </ul>
                                         </li>
                                 <?php }
                                   }

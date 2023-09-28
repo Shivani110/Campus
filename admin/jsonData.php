@@ -12,14 +12,15 @@
 		}
 
         public function deleteUser($id){
-            print_r($id);
-
+            // print_r($id);
+           
             $query = "Select * from users where id='$id'";
             $result = mysqli_query($this->conn,$query);
 
             if($result->num_rows>0){
                 $row = mysqli_fetch_array($result);
                 // print_r($row);
+                
                 $id = $row['id'];
                 $role = $row['user_type'];
 
@@ -29,7 +30,8 @@
                     $result = mysqli_query($this->conn,$query);
 
                     if($result == true){
-                        return "Successfully deleted";
+                        $response = array('success'=> true, 'msg' =>'Deleted!!');
+                        return $response;
                     }
                 }else if($role == '2'){
                     $query = "Delete staff,users from staff INNER JOIN users ON staff.user_id = users.id WHERE users.id='$id'";
@@ -37,21 +39,24 @@
                     $result = mysqli_query($this->conn,$query);
 
                     if($result == true){
-                        return "Successfully deleted";
+                        $response = array('success'=> true, 'msg' =>'Deleted!!');
+                        return $response;
                     }
                 }else if($role == '3'){
                     $query = "Delete sponsor,users from sponsor INNER JOIN users ON sponsor.user_id = users.id WHERE users.id='$id'";
 
                     $result = mysqli_query($this->conn,$query);
                     if($result == true){
-                        return "Successfully deleted";
+                        $response = array('success'=> true, 'msg' =>'Deleted!!');
+                        return $response;
                     }
                 }else if($role == '4'){
                     $query = "Delete alumni,users from alumni INNER JOIN users ON alumni.user_id = user.id WHERE users.id='$id'";
 
                     $result = mysqli_query($this->conn,$query);
                     if($result == true){
-                        return "Successfully deleted";
+                        $response = array('success'=> true, 'msg' =>'Deleted!!');
+                        return $response;
                     }
                 }
             }
@@ -60,12 +65,16 @@
 
     $dbConn = new jsonData(DB_HOST,DB_USER,DB_PASSWORD,DB_DATABSE);
 
-  
-    if(isset($_GET['id'])){
-        $id = $_GET['id'];
-       // print_r($id);
-        $deleteuser = $dbConn->deleteUser($id);
-       print_r($deleteuser);
+    $json = file_get_contents('php://input');
+
+    $data =(array) json_decode($json);
+
+    // print_r($data);
+
+    if($data){
+        $id = $data['id'];
+        $delete = $dbConn->deleteUser($id);
+        print_r(json_encode($delete));
     }
-    
+   
 ?>

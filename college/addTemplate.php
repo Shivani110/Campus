@@ -97,8 +97,7 @@
             if($result == true){
                 session_start();
                 $_SESSION['success']="College Template Successfully Created";
-                print_r($_SESSION);
-                // header("location:collegeTemplate.php");
+                header("location:collegeTemplate.php");
             }else{
                 echo mysqli_error($this->conn);
             }

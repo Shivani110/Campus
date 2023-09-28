@@ -77,6 +77,36 @@
                 return $row;
             }
         }
+
+        public function getPost($id){
+            $query = "Select * from post where clg_id='$id'";
+            $result = mysqli_query($this->conn,$query);
+            $data = array();
+            if($result->num_rows>0){
+                while($row=$result->fetch_assoc()){
+                    array_push($data,$row);
+                    // echo '<pre>';
+                    // print_r($data);
+                    // echo '</pre>';
+                }
+            }
+            return $data;
+        }
+
+        public function posts($id){
+            // print_r($id);
+        
+            $query = "Select * from post where id='$id'";
+            $result = mysqli_query($this->conn,$query);
+            $data = array();
+            if($result->num_rows>0){
+                while($row=$result->fetch_assoc()){
+                    array_push($data,$row);
+                    // print_r($data);
+                }
+            }
+            return $data;
+        }
     }
     
 

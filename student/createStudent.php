@@ -25,7 +25,10 @@
             </div>
             <div class="form-group">
                 <label class="form-label" for="pic">Pictures</label>
-                <img src="./student/uploads/<?php print_r($data['pictures']); ?>" height="100px" width="100px">
+                <?php if(isset($data['pictures'])){?>
+                    <img src="./student/uploads/<?php print_r($data['pictures']); ?>" height="100px" width="100px">
+                <?php
+                }?>
                 <input type="file" class="form-control" id="file" name="file" value="">
             </div>
             <div class="form-group">
@@ -151,6 +154,9 @@
                     success:function(response){
                         console.log(response);
                         NioApp.Toast('Student updated successfully', 'info', {position: 'top-right'});
+                        setTimeout(() =>{
+                            location.reload();
+                        },1000);
                     }
                 });
             }
