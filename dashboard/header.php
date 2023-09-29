@@ -3,6 +3,7 @@
 
     include_once("DashboardController.php");
 
+    // print_r($_SESSION);
 ?>
 <!DOCTYPE html>
 <html lang="zxx" class="js">
@@ -60,7 +61,6 @@
                                         </li>
                                     </ul><!-- .nk-menu-sub -->
                                 </li>
-                               
                                 <li class="nk-menu-heading">
                                     <!-- <h6 class="overline-title text-primary-alt">Dashboards</h6> -->
                                 </li><!-- .nk-menu-item -->

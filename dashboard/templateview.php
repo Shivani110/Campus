@@ -63,7 +63,7 @@
 						<li><a href="#">Home</a></li>
 						<li><a href="#">About</a></li>
 						<li><a href="#">Courses</a></li>
-						<li><a href="#">Blog</a></li>
+						<li><a href="./viewposts.php?id=<?php echo $clg['id']; ?>&clgid=<?php echo $clg['clg_id']; ?>">Blog</a></li>
 						<li><a href="#">Contact</a></li>
 					</ul>
 				</nav>

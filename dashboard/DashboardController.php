@@ -45,6 +45,19 @@
                 }
             }
         }
+
+        public function viewPost($id){
+            $query="Select * from post where clg_id='$id'";
+            $result = mysqli_query($this->conn,$query);
+            $data = array();
+            if($result->num_rows>0){
+                while($row=$result->fetch_assoc()){
+                    array_push($data,$row);
+                    // print_r($data);
+                }
+            }
+            return $data;
+        }
     }
 
     $dbConn = new DashboardController(DB_HOST,DB_USER,DB_PASSWORD,DB_DATABSE);

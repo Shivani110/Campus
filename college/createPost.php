@@ -81,14 +81,10 @@
 
     $data = array($_POST,$_FILES);
 
-    // print_r($data);
     if($data){
-
         if($data[0]['id'] != ''){ 
-            // echo 'done';
             $update = $dbConn->editPost($data);
         }else{
-            // echo 'create';
             $create = $dbConn->addPost($data);
         }
     }

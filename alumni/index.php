@@ -1,6 +1,6 @@
 <?php include_once("header.php"); 
 
-    if($_SESSION['user_type'] == 4){
+    if($_SESSION['users']['user_type'] != 4){
         header("location:login.php");
     }
 ?>
