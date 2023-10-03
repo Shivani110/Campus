@@ -2,8 +2,6 @@
     session_start();
 
     include_once("DashboardController.php");
-
-    // print_r($_SESSION);
 ?>
 <!DOCTYPE html>
 <html lang="zxx" class="js">

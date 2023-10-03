@@ -14,40 +14,43 @@
             $userid = $data['userid'];
             $query = "Select * from post where id = '$id'";
             $result = mysqli_query($this->conn,$query);
-            // $data = array();
+           
             if($result->num_rows>0){
                 $row=$result->fetch_assoc();
                 $id = $row['id'];
                 $like = $row['likes'];
                 $likes = json_decode($like);
 
-                // print_r($_SESSION);
-                if(in_array($userid, $likes)){
-                 echo 'not done';
+                $dislikes = array();
+
+                if($likes == null){
+                    if($like == '' || $like == null){
+                        $likes = array($userid);
+                    }else{
+                        array_push($likes,$userid);
+                    }
+                    $likesarr = json_encode($likes);
+                    
                 }else{
-                    echo 'done';
+                    if(in_array($userid, $likes)){
+                        echo 'not done';
+                        foreach($likes as $val){
+                           if($val == $userid){
+                            continue;
+                           }
+                           array_push($dislikes,$val);
+                        }
+                        $likesarr = json_encode($dislikes);
+                    }else{
+                        echo 'done';
+                        if($like == '' || $like == null){
+                            $likes = array($userid);
+                        }else{
+                            array_push($likes,$userid);
+                        }
+                        $likesarr = json_encode($likes);
+                    }
                 }
-
-                // if($user == null){
-                //     echo 'done';
-                // }else{
-                   
-                // }
-
-                // foreach($likes as $val){
-
-                // }
-                
-
-                if($like == '' || $like == null){
-                   $likes = array($userid);
-                }else{
-                    array_push($likes,$userid);
-                }
-
-                $likesarr = json_encode($likes);
-                // print_r(array_values($likes));
-                die();
 
                 $query = "Update post set likes='$likesarr' where id='$id'";
                 $result = mysqli_query($this->conn,$query);

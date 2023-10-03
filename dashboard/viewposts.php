@@ -1,23 +1,35 @@
 <?php session_start();
 		include_once("DashboardController.php"); 
+
+		if(isset($_GET['page'])){
+			$page = $_GET['page'];
+		}else{
+			$page = 1;
+		}
 		
         if(isset($_GET['clgid'])){
             $id = $_GET['clgid'];
+			
+			$data = array($id,$page);
 
-            $post = $dbConn->viewPost($id);
+			// print_r($data);
+            $post = $dbConn->post($data);
+			// print_r($post);
             
         }
 
         if(isset($_GET['id'])){
             $id = $_GET['id'];
             $template = $dbConn->collegeTemplate($id);
-            // print_r($template);
         }
 		
 		if(isset($_SESSION)){
 			$userid = $_SESSION['users']['id'];
-			// print_r($userid);
 		}
+
+		$userspost = $dbConn->pagepost();
+		$totalpages = $userspost/4;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -125,8 +137,8 @@
                                         <div class="pull-left">
                                             <button class="fa fa-thumbs-up like-btn" onclick="likepost(<?php print_r($data['id']);?>)"></button>
                                         </div>
-										<div class="pull-right">
-											<button class="blog-meta-comments"><i class="fa fa-comments"></i>
+										<div class="pull-right comment-box">
+											<button class="blog-meta-comments" onclick="commentpost(<?php print_r($data['id']);?>)"><i class="fa fa-comments"></i>
 										</div>
 									</div>
 								</div>
@@ -137,21 +149,21 @@
                         </div>
 
 						<div class="row">
-
-							<!-- pagination -->
 							<div class="col-md-12">
 								<div class="post-pagination">
-									<a href="#" class="pagination-back pull-left">Back</a>
+									<?php if($page>1){
+										echo '<a class="pagination-back pull-left" href = "viewposts.php?id='.$template['id'].'&clgid='.$template['clg_id'].'&page=' . $page-1 . '"> BACK </a>';
+									}?>
 									<ul class="pages">
-										<li class="active">1</li>
-										<li><a href="#">2</a></li>
-										<li><a href="#">3</a></li>
-										<li><a href="#">4</a></li>
+									<?php for($i=1; $i<=$totalpages+1; $i++){?>
+										<li class="active"><?php echo '<a href = "viewposts.php?id='.$template['id'].'&clgid='.$template['clg_id'].'&page=' . $i . '">' . $i . '</a>'?></li>
+									<?php } ?>
 									</ul>
-									<a href="#" class="pagination-next pull-right">Next</a>
+									<?php if($page < $totalpages){
+										echo '<a class="pagination-next pull-right" href = "viewposts.php?id='.$template['id'].'&clgid='.$template['clg_id'].'&page=' . $page+1 . '"> NEXT </a>';
+									}?>
 								</div>
 							</div>
-							<!-- pagination -->
 
 						</div>
 						<!-- /row -->
@@ -326,6 +338,13 @@
                     }
                 });
             }
+
+			const commentpost = function(id){
+				console.log(id);
+				var html = '<div><input type="text" id="comment" name="comment" value=""><button>POST</buttton></div>';
+
+        		$('.comment-box').append(html);
+			}
         </script>
 
 		<div id='preloader'><div class='preloader'></div></div>
