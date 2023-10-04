@@ -11,10 +11,8 @@
             $id = $_GET['clgid'];
 			
 			$data = array($id,$page);
-
-			// print_r($data);
             $post = $dbConn->post($data);
-			// print_r($post);
+			//print_r(json_decode($post[0]['comments']));
             
         }
 
@@ -44,6 +42,7 @@
         <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
         <link rel="stylesheet" href="css/font-awesome.min.css">
         <link type="text/css" rel="stylesheet" href="css/style.css"/>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast@1.4.0/dist/css/iziToast.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script> 
         <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/jquery.validate.min.js">
         </script>
@@ -138,12 +137,37 @@
                                             <button class="fa fa-thumbs-up like-btn" onclick="likepost(<?php print_r($data['id']);?>)"></button>
                                         </div>
 										<div class="pull-right comment-box">
-											<button class="blog-meta-comments" onclick="commentpost(<?php print_r($data['id']);?>)"><i class="fa fa-comments"></i>
+											<button class="blog-meta-comments comment" dataid="<?php print_r($data['id']); ?>"><i class="fa fa-comments"></i></button>
+											<div id="comment<?php print_r($data['id']); ?>" style="display:none">
+												<input type="text" id="cmnt<?php print_r($data['id']); ?>" name="cmnt" class="cmntbox" value="">
+												
+												<button class="btn btn-primary post" onclick="commentpost(postid=<?php print_r($data['id']);?>)">post</button>
+											</div>
+											<div><?php 
+												if($data['comments'] != null){
+													$comments = json_decode($data['comments']);
+													
+													foreach($comments as $val){
+														$value = (array)($val);
+														$values = array_values($value);
+														$key = array_keys($value);
+														
+														
+														$cmnts = $dbConn->usersdata($key);
+													
+														?>
+
+														<div><?php if(isset($cmnts[0]['username'])) { echo $cmnts[0]['username']; }?> : <?php if(isset($comments)) {echo $values[0];} ?></div>
+														
+													<?php }	
+													}
+												?>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-                            <?php 
+							<?php 
                             }?>
 							<!-- /single blog -->
                         </div>
@@ -324,7 +348,7 @@
                     id:id,
 					userid:<?php echo $userid;?>
                 }
-				// console.log(data);
+				//  console.log(data);
 
                 $.ajax({
                     url:'./postlikes.php',
@@ -339,18 +363,46 @@
                 });
             }
 
-			const commentpost = function(id){
-				console.log(id);
-				var html = '<div><input type="text" id="comment" name="comment" value=""><button>POST</buttton></div>';
+			$('.comment').click(function(e){
+				var id=$(this).attr('dataid');
+				// console.log(id);
+				$('#comment'+id).toggle();
+			})
 
-        		$('.comment-box').append(html);
-			}
+			const commentpost = function(postid){
+					var data ={
+						userid:<?php echo $userid;?>,
+						postid:$(this).attr('postid'),
+						comment:$('#cmnt'+postid).val(),
+					} 
+					$.ajax({
+						url:"./postcomments.php",
+						type:"POST",
+						data:JSON.stringify(data),
+						cache:false,
+						dataType:"json",
+						contentType:"application/json",
+						processData:false,
+						success:function(response){
+							iziToast.success({
+								message: "Comment posted..",
+								position: 'topRight'
+							});
+						}
+					});
+				}
         </script>
 
 		<div id='preloader'><div class='preloader'></div></div>
 		<script type="text/javascript" src="js/jquery.min.js"></script>
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/izitoast@1.4.0/dist/js/iziToast.min.js"></script>
+		<script src="http://localhost/shivani/Campus/assets/assets/js/bundle.js?ver=3.1.2"></script>
+		<script src="http://localhost/shivani/Campus/assets/assets/js/scripts.js?ver=3.1.2"></script>
+		<script src="http://localhost/shivani/Campus/assets/assets/js/charts/gd-default.js?ver=3.1.2"></script>
+		<script src="http://localhost/shivani/Campus/assets/assets/js/example-toastr.js?ver=3.1.2"></script>
+		<script src="http://localhost/shivani/Campus/assets/assets/js/libs/datatable-btns.js?ver=3.1.2"></script>
 
 	</body>
 </html>

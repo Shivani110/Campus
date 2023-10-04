@@ -82,12 +82,27 @@
         }
 
         public function pagepost(){
-            $query = "Select *from post where clg_id=$_GET[clgid]";  
+            $query = "Select * from post where clg_id=$_GET[clgid]";  
             $result = mysqli_query($this->conn, $query);  
             $number_of_result = mysqli_num_rows($result);
 
             // print_r($number_of_result);
             return $number_of_result;
+        }
+
+        public function usersdata($data){
+            $id = $data[0];
+            $query = "Select username from users where id ='$id'";
+            $result = mysqli_query($this->conn,$query);
+
+            $data = array();
+            if($result->num_rows>0){
+                while($row=$result->fetch_assoc()){
+                    array_push($data,$row);
+                    
+                }
+            }
+            return $data;
         }
     }
 
