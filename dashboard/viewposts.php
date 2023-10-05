@@ -140,22 +140,23 @@
 											<button class="blog-meta-comments comment" dataid="<?php print_r($data['id']); ?>"><i class="fa fa-comments"></i></button>
 											<div id="comment<?php print_r($data['id']); ?>" style="display:none">
 												<input type="text" id="cmnt<?php print_r($data['id']); ?>" name="cmnt" class="cmntbox" value="">
-												
-												<button class="btn btn-primary post" onclick="commentpost(postid=<?php print_r($data['id']);?>)">post</button>
+												<span class="error"><p id="comment_error<?php print_r($data['id']); ?>"></p></span>
+												<button class="btn btn-primary post" onclick="commentpost(postid=<?php print_r($data['id']);?>)">Comment</button>
 											</div>
-											<div><?php 
-												if($data['comments'] != null){
-													$comments = json_decode($data['comments']);
-													
-													foreach($comments as $val){
-														$value = (array)($val);
-														$values = array_values($value);
-														$key = array_keys($value);
+											<div id="showcomments<?php print_r($data['id']); ?>" style="display:none">
+												<?php 
+													if($data['comments'] != null){
+														$comments = json_decode($data['comments']);
 														
+														foreach($comments as $val){
+															$value = (array)($val);
+															$values = array_values($value);
+															$key = array_keys($value);
+															
+															
+															$cmnts = $dbConn->usersdata($key);
 														
-														$cmnts = $dbConn->usersdata($key);
-													
-														?>
+															?>
 
 														<div><?php if(isset($cmnts[0]['username'])) { echo $cmnts[0]['username']; }?> : <?php if(isset($comments)) {echo $values[0];} ?></div>
 														
@@ -365,11 +366,18 @@
 
 			$('.comment').click(function(e){
 				var id=$(this).attr('dataid');
-				// console.log(id);
 				$('#comment'+id).toggle();
+				$('#showcomments'+id).toggle();
 			})
 
 			const commentpost = function(postid){
+				var postid = $(this).attr('postid');
+				var comment = $('#cmnt'+postid).val();
+				
+				if(comment == null || comment == ''){
+					error = "Please enter";
+        			document.getElementById("comment_error"+postid).innerHTML = error;
+				}else{
 					var data ={
 						userid:<?php echo $userid;?>,
 						postid:$(this).attr('postid'),
@@ -388,9 +396,14 @@
 								message: "Comment posted..",
 								position: 'topRight'
 							});
+							setTimeout(() => {
+								location.reload();
+							},1000);
 						}
-					});
+					});	
 				}
+			}
+			
         </script>
 
 		<div id='preloader'><div class='preloader'></div></div>

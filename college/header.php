@@ -103,6 +103,18 @@
                                                 </li>
                                             </ul>
                                         </li>
+                                        <li class="nk-menu-heading">
+                                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                                <span class="nk-menu-icon"></span>
+                                                <span class="nk-menu-text">Events</span>
+                                            </a>
+                                            <ul class="nk-menu-sub" style="display: block;">
+                                                <li class="nk-menu-item">
+                                                    <a href="college/events.php" class="nk-menu-link"><span class="nk-menu-text">Add Events</span></a>
+                                                    <a href="college/allevents.php" class="nk-menu-link"><span class="nk-menu-text">All Events</span></a>
+                                                </li>
+                                            </ul>
+                                        </li>
                                 <?php }
                                   }
                                 ?><!-- .nk-menu-item -->

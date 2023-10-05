@@ -94,15 +94,36 @@
         }
 
         public function posts($id){
-            // print_r($id);
-        
             $query = "Select * from post where id='$id'";
             $result = mysqli_query($this->conn,$query);
             $data = array();
             if($result->num_rows>0){
                 while($row=$result->fetch_assoc()){
                     array_push($data,$row);
-                    // print_r($data);
+                }
+            }
+            return $data;
+        }
+
+        public function getevents($id){
+            $query = "Select * from events where affilated_by='$id'";
+            $result = mysqli_query($this->conn,$query);
+            $data = array();
+            if($result->num_rows>0){
+                while($row=$result->fetch_assoc()){
+                    array_push($data,$row);
+                }
+            }
+            return $data;
+        }
+
+        public function events($id){
+            $query = "Select * from events where id='$id'";
+            $result = mysqli_query($this->conn,$query);
+            $data = array();
+            if($result->num_rows>0){
+                while($row=$result->fetch_assoc()){
+                    array_push($data,$row);
                 }
             }
             return $data;

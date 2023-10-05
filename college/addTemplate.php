@@ -108,7 +108,7 @@
             $query = "Select * from college_template where id='$id'";
             $result = mysqli_query($this->conn,$query);
 
-            if($result->num_rows){
+            if($result->num_rows>0){
                 $row=$result->fetch_assoc();
                 // print_r($data);
                 // die();
