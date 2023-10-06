@@ -128,6 +128,29 @@
             }
             return $data;
         }
+
+        public function eventusers($id){
+           
+            // $query = "Select * from users where id = '$id'";
+            $query = "Select * from users,staff,student,alumni,sponsor 
+            INNER JOIN student ON staff.user_id=users.id
+            INNER JOIN student ON student.user_id=users.id
+            INNER JOIN student ON alumni.user_id=users.id
+            INNER JOIN student ON sponsor.user_id=users.id where users.id='$id'";
+            
+            $result = mysqli_query($this->conn,$query);
+
+            $data = array();
+            if($result->num_rows>0){
+                while($row=$result->fetch_assoc()){
+                    array_push($data,$row);
+                    echo '<pre>';
+                    print_r($row);
+                    echo '</pre>';
+                }
+            }
+            return $data;
+        }
     }
     
 

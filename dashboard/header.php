@@ -19,6 +19,10 @@
     <!-- StyleSheets  -->
     <link rel="stylesheet" href="./assets/assets/css/dashlite.css?ver=3.1.2">
     <link id="skin-default" rel="stylesheet" href="./assets/assets/css/theme.css?ver=3.1.2">
+    <link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="dashboard/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="dashboard/css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="dashboard/css/style.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script> 
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/jquery.validate.min.js" ></script>
 </head>
@@ -56,6 +60,17 @@
                                     <ul class="nk-menu-sub" style="display: block;">
                                         <li class="nk-menu-item">
                                             <a href="./dashboard/viewcollege.php" class="nk-menu-link"><span class="nk-menu-text">View Colleges</span></a>
+                                        </li>
+                                    </ul><!-- .nk-menu-sub -->
+                                </li>
+                                <li class="nk-menu-item has-sub active">
+                                    <a href="#" class="nk-menu-link nk-menu-toggle">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-tile-thumb"></em></span>
+                                        <span class="nk-menu-text">Events</span>
+                                    </a>
+                                    <ul class="nk-menu-sub" style="display: block;">
+                                        <li class="nk-menu-item">
+                                            <a href="./dashboard/viewevents.php?page=1" class="nk-menu-link"><span class="nk-menu-text">View Events</span></a>
                                         </li>
                                     </ul><!-- .nk-menu-sub -->
                                 </li>

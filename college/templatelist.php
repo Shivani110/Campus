@@ -18,9 +18,11 @@
             <tbody>
             <?php foreach ($gettmp as $data){?>
                 <tr>
-                  <td><img src="./college/uploads/<?php print_r($data['logo']);?>" height="200px" width="200px"></td>
-                  <td><a href="./college/collegeTemplate.php?id=<?php echo $data['id']?>" class="btn btn-primary">Edit</a></td>
-                  <td><button class="btn btn-danger" onclick="deleteTemplate(<?php echo $data['id'];?>)">Delete</button></td>
+                    <td><img src="./college/uploads/<?php print_r($data['logo']);?>" height="200px" width="200px"></td>
+                    <td>
+                        <a href="./college/collegeTemplate.php?id=<?php echo $data['id']?>" class="btn btn-primary">Edit</a>
+                        <button class="btn btn-danger" onclick="deleteTemplate(<?php echo $data['id'];?>)">Delete</button>
+                    </td>
                 </tr>
             <?php 
                 }

@@ -104,6 +104,32 @@
             }
             return $data;
         }
+
+        public function totalevents(){
+            $query = "Select * from events";  
+            $result = mysqli_query($this->conn, $query);  
+            $number_of_result = mysqli_num_rows($result);
+            return $number_of_result;
+        }
+
+        public function eventsperpage($data){
+            $query = "Select * from events";  
+            $result = mysqli_query($this->conn, $query);  
+            $number_of_result = mysqli_num_rows($result);
+            $result_per_page = 10;
+            $page = $data;
+            $page_result = ($page-1)* $result_per_page;
+            $num_page = ceil($number_of_result/$result_per_page);
+            $query = "Select * from events ORDER BY id DESC LIMIT $page_result, $result_per_page ";
+            $result = mysqli_query($this->conn,$query);
+            $data = array();
+           
+            while($row=$result->fetch_assoc()){
+                array_push($data,$row);
+            }
+            return $data;
+        }
+
     }
 
     $dbConn = new DashboardController(DB_HOST,DB_USER,DB_PASSWORD,DB_DATABSE);
