@@ -18,13 +18,35 @@
 
             if($result == true){
                 while($row=$result->fetch_assoc()){
-                    //print_r($row);
                     array_push($data,$row);
                 }
             }
             return $data;
         }
-       
+
+        public function getposts($id){
+            $query = "Select * from public_posts where user_id='$id'";
+            $result = mysqli_query($this->conn,$query);
+            $data = array();
+            if($result->num_rows>0){
+                while($row=$result->fetch_assoc()){
+                    array_push($data,$row);
+                }
+            }
+            return $data;
+        }
+
+        public function editposts($id){
+            $query = "Select * from public_posts where id='$id'";
+            $result = mysqli_query($this->conn,$query);
+            $data = array();
+            if($result->num_rows>0){
+                while($row=$result->fetch_assoc()){
+                    array_push($data,$row);
+                }
+            }
+            return $data;
+        }
     }
 
     $dbConn = new SponsorController(DB_HOST,DB_USER,DB_PASSWORD,DB_DATABSE);

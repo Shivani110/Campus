@@ -94,10 +94,10 @@
                         dataType:"text",
                         success:function(response){
                             // console.log(response);
-                            NioApp.Toast('Sponsor updated successfully', 'info', {position: 'top-right'});
-                            setTimeout(() => {
-                                location.reload
-                            }, 1000);
+                            NioApp.Toast('Update successfully', 'info', {position: 'top-right'});
+                            setTimeout(() =>{
+                                location.reload();
+                            },1000);
                         }
                     });
                 }

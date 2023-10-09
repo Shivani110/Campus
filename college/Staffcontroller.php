@@ -129,31 +129,88 @@
             return $data;
         }
 
-        public function eventusers($id){
-           
-            // $query = "Select * from users where id = '$id'";
-            $query = "Select * from users,staff,student,alumni,sponsor 
-            INNER JOIN student ON staff.user_id=users.id
-            INNER JOIN student ON student.user_id=users.id
-            INNER JOIN student ON alumni.user_id=users.id
-            INNER JOIN student ON sponsor.user_id=users.id where users.id='$id'";
-            
+        public function eventusers($data){
+            $query = "Select user_type from users where id='$data'";
             $result = mysqli_query($this->conn,$query);
 
-            $data = array();
             if($result->num_rows>0){
                 while($row=$result->fetch_assoc()){
-                    array_push($data,$row);
-                    echo '<pre>';
-                    print_r($row);
-                    echo '</pre>';
+                    $usertype = $row['user_type'];
+
+                    if($usertype == 0){
+                        $query = "SELECT users.user_type,users.realname,users.phone FROM users
+                        WHERE users.user_type=0 and users.id = '$data'";
+
+                        $result = mysqli_query($this->conn,$query);
+
+                        if($result->num_rows>0){
+                
+                            while($row=$result->fetch_assoc()){
+                    
+                                return $row;
+                            }
+                        }
+                    }else if($usertype == 1){
+                        $query = "SELECT users.user_type,users.realname,users.email,users.phone,student.pictures FROM users
+                        INNER JOIN student ON student.user_id = users.id WHERE users.id = '$data'";
+
+                        $result = mysqli_query($this->conn,$query);
+
+                        if($result->num_rows>0){
+                
+                            while($row=$result->fetch_assoc()){
+                    
+                                return $row;
+                            }
+                        }
+                    } else if($usertype == 2){
+                        $query = "SELECT users.user_type,users.realname,users.email,users.phone,staff.pictures FROM users
+                        INNER JOIN staff ON staff.user_id = users.id WHERE users.id = '$data'";
+
+                        $result = mysqli_query($this->conn,$query);
+
+                        if($result->num_rows>0){
+                
+                            while($row=$result->fetch_assoc()){
+                    
+                                return $row;
+                            }
+                        }
+                    }else if($usertype == 3){
+                        $query = "SELECT users.user_type,users.realname,users.email,users.phone,sponsor.pictures FROM users
+                        INNER JOIN sponsor ON sponsor.user_id = users.id WHERE users.id = '$data'";
+                        
+                        $result = mysqli_query($this->conn,$query);
+
+                        if($result->num_rows>0){
+                
+                            while($row=$result->fetch_assoc()){
+                    
+                                return $row;
+                            }
+                        }
+                    }else if($usertype == 4){
+                        $query = "SELECT users.user_type,users.realname,users.email,users.phone,alumni.pictures FROM users
+                        INNER JOIN alumni ON alumni.user_id = users.id WHERE users.id = '$data'";
+                        
+                        $result = mysqli_query($this->conn,$query);
+
+                        if($result->num_rows>0){
+                
+                            while($row=$result->fetch_assoc()){
+                    
+                                return $row;
+                            }
+                        }
+                    }
                 }
             }
-            return $data;
         }
     }
     
+    
 
     $dbConn = new StaffController(DB_HOST,DB_USER,DB_PASSWORD,DB_DATABSE);
+    
     
 ?>

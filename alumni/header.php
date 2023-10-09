@@ -62,6 +62,20 @@
                                
                                 <li class="nk-menu-heading">
                                     <h6 class="overline-title text-primary-alt">Dashboards</h6>
+                                    <a href="#" class="nk-menu-link nk-menu-toggle">
+                                        <span class="nk-menu-icon"></span>
+                                        <span class="nk-menu-text">Posts</span>
+                                    </a>
+                                    <ul class="nk-menu-sub" style="display: block;">
+                                        <li class="nk-menu-item">
+                                            <a href="alumni/addpost.php" class="nk-menu-link">
+                                            <span class="nk-menu-text">Add Posts</span></a>
+                                        </li>
+                                        <li class="nk-menu-item">
+                                            <a href="alumni/allposts.php" class="nk-menu-link">
+                                            <span class="nk-menu-text">All Posts</span></a>
+                                        </li>
+                                    </ul>
                                 </li><!-- .nk-menu-item -->
                               </ul><!-- .nk-menu -->
                         </div><!-- .nk-sidebar-menu -->

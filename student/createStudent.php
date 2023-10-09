@@ -152,7 +152,7 @@
                     processData:false,
                     dataType:"text",
                     success:function(response){
-                        console.log(response);
+                        // console.log(response);
                         NioApp.Toast('Student updated successfully', 'info', {position: 'top-right'});
                         setTimeout(() =>{
                             location.reload();

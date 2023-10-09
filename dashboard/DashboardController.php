@@ -130,6 +130,21 @@
             return $data;
         }
 
+        public function getusers(){
+            $query = "Select users.realname,users.user_type,public_posts.* from users INNER JOIN public_posts
+            ON public_posts.user_id=users.id";
+            $result = mysqli_query($this->conn,$query);
+
+            $data = array();
+            if($result->num_rows>0){
+                while($row=$result->fetch_assoc()){
+                    array_push($data,$row);
+                    
+                }
+            }
+            return $data;
+        }
+        
     }
 
     $dbConn = new DashboardController(DB_HOST,DB_USER,DB_PASSWORD,DB_DATABSE);

@@ -74,6 +74,17 @@
                                         </li>
                                     </ul><!-- .nk-menu-sub -->
                                 </li>
+                                <li class="nk-menu-item has-sub active">
+                                    <a href="#" class="nk-menu-link nk-menu-toggle">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-tile-thumb"></em></span>
+                                        <span class="nk-menu-text">Public Posts</span>
+                                    </a>
+                                    <ul class="nk-menu-sub" style="display: block;">
+                                        <li class="nk-menu-item">
+                                            <a href="./dashboard/publicposts.php" class="nk-menu-link"><span class="nk-menu-text">Posts</span></a>
+                                        </li>
+                                    </ul><!-- .nk-menu-sub -->
+                                </li>
                                 <li class="nk-menu-heading">
                                     <!-- <h6 class="overline-title text-primary-alt">Dashboards</h6> -->
                                 </li><!-- .nk-menu-item -->

@@ -69,22 +69,38 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
              <?php 
-                $guests = json_decode($data['event_guest']); 
-                foreach($guests as $guest){
-                    if($guest){
-                        $users = $dbConn->eventusers($guest);
-                    }?>
-                    <!-- <table class="table table hover">
-                        <thead>
-                            <tr>
-                                <th scope="col">Guest Name</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <td><?php echo $users[0]["realname"]; ?></td>
-                        </tbody>
-                    </table> -->
-              <?php  }    
+                    $guest = json_decode($data['event_guest']);
+                    foreach($guest as $guests){
+                        if($guests){
+                            $users = $dbConn->eventusers($guests);
+                    ?>
+                    <div class="modal-body">
+                        <?php if($users['user_type'] != 0){?>
+                        <h6>Profile</h6>
+                        <?php 
+                            if($users['user_type'] == 1){ ?>
+                                <img src="http://localhost/shivani/Campus/student/uploads/<?php print_r($users['pictures']);?>">
+                           <?php }else if($users['user_type'] == 2){?>
+                                <img src="http://localhost/shivani/Campus/college/uploads/<?php print_r($users['pictures']);?>">
+                          <?php }else if($users['user_type'] == 3){?>
+                                <img src="http://localhost/shivani/Campus/sponsor/uploads/<?php print_r($users['pictures']);?>">
+                          <?php }else if($users['user_type'] == 4){?>
+                                <img src="http://localhost/shivani/Campus/alumni/uploads/<?php print_r($users['pictures']);?>">
+                          <?php }
+                          }?>
+                    </div>
+                    <div class="modal-body">
+                        <h6>Guest Name</h6>
+                        <?php print_r($users['realname']); ?>
+                    </div>
+                    <div class="modal-body">
+                        <h6>Contact Number</h6>
+                        <?php print_r($users['phone']); ?>
+                    </div>
+                    <hr>
+              <?php 
+               }
+            }
             ?>
         </div>
     </div>

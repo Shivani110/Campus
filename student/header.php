@@ -57,15 +57,28 @@
                                     </a>
                                     <ul class="nk-menu-sub" style="display: block;">
                                         <li class="nk-menu-item">
-                                            <a href="student/createStudent.php" class="nk-menu-link"><span class="nk-menu-text">Add Student</span></a>
+                                            <a href="student/createStudent.php" class="nk-menu-link">
+                                                <span class="nk-menu-text">Add Student</span></a>
                                         </li>
                                     </ul><!-- .nk-menu-sub -->
                                 </li>
                                
                                 <li class="nk-menu-heading">
                                     <h6 class="overline-title text-primary-alt">Dashboards</h6>
-                                </li><!-- .nk-menu-item -->
-                              </ul><!-- .nk-menu -->
+                                    <a href="#" class="nk-menu-link nk-menu-toggle">
+                                        <span class="nk-menu-icon"></span>
+                                        <span class="nk-menu-text">Posts</span>
+                                    </a>
+                                    <ul class="nk-menu-sub" style="display: block;">
+                                        <li class="nk-menu-item">
+                                            <a href="student/addposts.php" class="nk-menu-link">
+                                            <span class="nk-menu-text">Add Posts</span></a>
+                                            <a href="student/allposts.php" class="nk-menu-link">
+                                            <span class="nk-menu-text">All Posts</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul><!-- .nk-menu -->
                         </div><!-- .nk-sidebar-menu -->
                     </div><!-- .nk-sidebar-content -->
                 </div><!-- .nk-sidebar-element -->

@@ -7,7 +7,7 @@
 
     <div class="nk-content">
         Welcome to Student Dashboard
-        <?php print_r($_SESSION); ?>
+        <?php print_r($_SESSION['users']['id']); ?>
     </div>
 
 <?php include_once("footer.php"); ?>
