@@ -55,7 +55,7 @@
                 $result = mysqli_query($this->conn,$query);
 
                 if($result == true){
-                    echo 'updated';
+                    return $likesarr;
                 }else{
                     echo mysqli_error($this->conn);
                 }
@@ -73,5 +73,6 @@
 
     if($data){
         $likepost = $dbConn->postlikes($data);
+        print_r(json_encode($likepost));
     }
     

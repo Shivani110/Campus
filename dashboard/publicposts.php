@@ -6,7 +6,11 @@
 
     if(isset($_SESSION)){
         $userid = $_SESSION['users']['id'];
+		$username = $_SESSION['users']['realname'];
     }
+
+	
+	
         
 ?>
 <!DOCTYPE html>
@@ -17,7 +21,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-		<title>HTML Education Template</title>
+		<title>Public Posts</title>
 
 		<!-- Google font -->
 		<link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
@@ -27,10 +31,14 @@
 
 		<!-- Font Awesome Icon -->
 		<link rel="stylesheet" href="css/font-awesome.min.css">
+		<link rel="stylesheet" href="./assets/assets/css/dashlite.css?ver=3.1.2">
+    	<link id="skin-default" rel="stylesheet" href="./assets/assets/css/theme.css?ver=3.1.2">
 
 		<!-- Custom stlylesheet -->
 		<link type="text/css" rel="stylesheet" href="css/style.css"/>
-
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script> 
+        <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/jquery.validate.min.js">
+        </script>
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
@@ -138,21 +146,72 @@
                                         <?php }?>
 									</div>
 									<h4><?php print_r($data['text']); ?></h4>
-                                    <h6>Posted by: <?php print_r($data['realname']); ?></h6>
+									<div>
+										Posted by: <?php print_r($data['realname']); ?>
+									</div>
+										<?php 
+											$pu_id = $data['user_id']; 
+											$profiles = $dbConn->userpictures($pu_id);
+										?>
+										<div>
+											<?php if($data['user_type'] == 1){ ?>
+												<img src="http://localhost/shivani/Campus/student/uploads/<?php print_r($profiles['pictures']); ?>" height="40px" width="40px">
+											<?php }elseif($data['user_type'] == 2){?>
+												<img src="http://localhost/shivani/Campus/college/uploads/<?php print_r($profiles['pictures']); ?>" height="40px" width="40px">
+											<?php }elseif($data['user_type'] == 3){?>	
+												<img src="http://localhost/shivani/Campus/sponsor/uploads/<?php print_r($profiles['pictures']); ?>" height="40px" width="40px">
+											<?php }elseif($data['user_type'] == 4){?>
+												<img src="http://localhost/shivani/Campus/alumni/uploads/<?php print_r($profiles['pictures']); ?>" height="40px" width="40px">
+											<?php } ?>	
+										</div>
+
 									<div class="blog-meta">
-                                      
-                                    <div class="pull-left">
-                                            <button class="fa fa-thumbs-up like-btn" onclick="likepost(<?php print_r($data['id']);?>)"></button>
-                                        </div>
+										<?php $likeid = $data['id'];
+											$likes = $dbConn->userslikes($likeid);
+											$like = json_decode($likes['likes']);
+
+											if($like != null){
+												if(in_array($userid,$like)){ ?>
+													<div class="pull-left like" id="dislike<?php print_r($data['id']); ?>" onclick="likepost(<?php print_r($data['id']);?>)">
+														<button class="fa fa-thumbs-down dislike-btn" d_likeid="<?php print_r($data['id']);?>">
+													</div>
+											<?php	
+												}else{ ?>
+													<div class="pull-left" id="like<?php print_r($data['id']); ?>"> 
+														<button class="fa fa-thumbs-up like-btn" likeid="<?php print_r($data['id']);?>" onclick="likepost(<?php print_r($data['id']);?>)"></button>
+													</div>
+											<?php	}
+											}else{ ?>
+												<div class="pull-left" id="like<?php print_r($data['id']); ?>">
+													<button class="fa fa-thumbs-up like-btn" likeid="<?php print_r($data['id']);?>" onclick="likepost(<?php print_r($data['id']);?>)"></button>
+												</div>
+											<?php	
+												}
+											?>
+
 										<div class="pull-right comment-box">
 											<button class="blog-meta-comments comment" dataid="<?php print_r($data['id']); ?>"><i class="fa fa-comments"></i></button>
 											<div id="comment<?php print_r($data['id']); ?>" style="display:none">
 												<input type="text" id="cmnt<?php print_r($data['id']); ?>" name="cmnt" class="cmntbox" value="">
 												<span class="error"><p id="comment_error<?php print_r($data['id']); ?>"></p></span>
-												<button class="btn btn-primary post" >Comment</button>
+												<button class="btn btn-primary post" onclick="postcomment(<?php print_r($data['id'])?>)">Comment</button>
 											</div>
 											<div id="showcomments<?php print_r($data['id']); ?>" style="display:none">
-												
+												<?php 
+													if($data['comments'] != null){
+														$comments = json_decode($data['comments']);
+														
+														foreach($comments as $val){
+															$value = (array)($val);
+															$values = array_values($value);
+															$key = array_keys($value);
+
+															$cmnts = $dbConn->usersdata($key);
+														?>
+													<div><?php if(isset($cmnts[0]['username'])) { echo $cmnts[0]['username']; }?>: <?php if(isset($comments)) {echo $values[0];} ?> </div>	
+													<?php }	
+													}
+												?>
 											</div>
 										</div>
 									</div>
@@ -191,10 +250,8 @@
 
 						<!-- search widget -->
 						<div class="widget search-widget">
-							<form>
-								<input class="input" type="text" name="search">
-								<button><i class="fa fa-search"></i></button>
-							</form>
+							<input type="text" name="search" id="search" class="input" val=''>
+							<button class="srch-btn"><i class="fa fa-search"></i></button>
 						</div>
 						<!-- /search widget -->
 
@@ -344,7 +401,6 @@
                 id:id,
                 userid:<?php echo $userid;?>
             }
-            //  console.log(data);
 
             $.ajax({
                 url:'./likes.php',
@@ -354,10 +410,67 @@
                 dataType:"json",
                 contentType:"application/json",
                 success:function(response){
-                    console.log(response);
+					const array = response;
+
+					if(array.includes(data.userid)){
+						console.log('like')
+						var html = '<div class="pull-left like" id="dislike'+id+'"><button class="fa fa-thumbs-down dislike-btn" d_likeid="'+id+'" onclick="likepost('+id+')"></div>';
+						$('#like'+id).html(html);
+					}else{
+						console.log('dislike')
+						var html = '<div class="pull-left" id="like'+id+'"><button class="fa fa-thumbs-up like-btn" likeid="'+id+'" onclick="likepost('+id+')"></button></div>';
+						$('#dislike'+id).html(html);
+					}
                 }
             });
-        }
+		}
+
+		$('.comment').click(function(e){
+			var id=$(this).attr('dataid');
+			$('#comment'+id).toggle();
+			$('#showcomments'+id).toggle();
+		})
+
+		const postcomment = function(id){
+			var data = {
+				id: id,
+				userid:<?php echo $userid;?>,
+				comment:$('#cmnt'+id).val(),
+			}
+			$.ajax({
+				url:"./comments.php",
+				type:"post",
+				data:JSON.stringify(data),
+				cache:false,
+                dataType:"json",
+                contentType:"application/json",
+				success:function(response){
+					var comments = data.comment;
+					var username = "<?php print_r($_SESSION['users']['realname']); ?>"
+					var html = '<div>'+username+':'+comments+'</div>';
+					
+					$('#showcomments'+id).append(html);
+					$('#cmnt'+id).val('');
+				}
+			})
+		}
+		
+		$(".srch-btn").click(function(){
+			var data ={
+				search: $('#search').val()
+			}
+			$.ajax({
+				url:"./searchpost.php",
+				type:"post",
+				data:JSON.stringify(data),
+				cache:false,
+                dataType:"json",
+                contentType:"application/json",
+				success:function(response){
+					console.log(response);
+				}
+			})
+		});
     </script>
 		<!-- preloader -->
 		<div id='preloader'><div class='preloader'></div></div>

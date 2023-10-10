@@ -134,17 +134,72 @@
             $query = "Select users.realname,users.user_type,public_posts.* from users INNER JOIN public_posts
             ON public_posts.user_id=users.id";
             $result = mysqli_query($this->conn,$query);
-
             $data = array();
+
             if($result->num_rows>0){
                 while($row=$result->fetch_assoc()){
                     array_push($data,$row);
-                    
                 }
             }
             return $data;
         }
+
+        public function userpictures($id){
+            $query = "Select user_type from users where id='$id'";
+            $result = mysqli_query($this->conn,$query);
+
+            if($result->num_rows>0){
+                while($row=$result->fetch_assoc()){
+                    $usertype = $row['user_type'];
+                    
+                    if($usertype == 1){
+                        $query = "Select student.* from users INNER JOIN student ON student.user_id=users.id where user_id='$id'";
+                        $result = mysqli_query($this->conn,$query);
+                        if($result->num_rows>0){
+                            while($row=$result->fetch_assoc()){
+                                return $row;
+                            }
+                        }
+
+                    } elseif($usertype == 2){
+                        $query = "Select staff.* from users INNER JOIN staff ON staff.user_id=users.id where user_id='$id'";
+                        $result = mysqli_query($this->conn,$query);
+                        if($result->num_rows>0){
+                            while($row=$result->fetch_assoc()){
+                                return $row;
+                            }
+                        }
+                    } elseif($usertype == 3){
+                        $query = "Select sponsor.* from users INNER JOIN sponsor ON sponsor.user_id=users.id where user_id='$id'";
+                        $result = mysqli_query($this->conn,$query);
+                        if($result->num_rows>0){
+                            while($row=$result->fetch_assoc()){
+                                return $row;
+                            }
+                        }
+                    } elseif($usertype == 4){
+                        $query = "Select alumni.* from users INNER JOIN alumni ON alumni.user_id=users.id where user_id='$id'";
+                        $result = mysqli_query($this->conn,$query);
+                        if($result->num_rows>0){
+                            while($row=$result->fetch_assoc()){
+                                return $row;
+                            }
+                        }
+                    }
+                }
+            }
+        }
         
+        public function userslikes($id){
+            $query = "Select likes from public_posts where id='$id'";
+            $result = mysqli_query($this->conn,$query);
+
+            if($result->num_rows>0){
+                while($row=$result->fetch_assoc()){
+                    return $row;
+                }
+            }
+        }
     }
 
     $dbConn = new DashboardController(DB_HOST,DB_USER,DB_PASSWORD,DB_DATABSE);
