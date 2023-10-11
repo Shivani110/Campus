@@ -121,29 +121,21 @@
 					<div id="main" class="col-md-9">
 
 						<!-- row -->
-						<div class="row">
+						<div class="row" id="posts">
 
                         <?php foreach($posts as $data){?>
 							<div class="col-md-6">
 								<div class="single-blog">
 									<div class="blog-img">
                                         <?php if($data['user_type'] == 1) { ?>
-                                            <a href="blog-post.html">
 											<img src="http://localhost/shivani/Campus/student/uploads/<?php print_r($data['image']); ?>" alt="">
-										</a>
                                        <?php }else if($data['user_type'] == 2) {?>
-										<a href="blog-post.html">
 											<img src="http://localhost/shivani/Campus/college/uploads/<?php print_r($data['image']); ?>" alt="">
-										</a>
                                         <?php }else if($data['user_type'] == 3) {?>
-										<a href="blog-post.html">
 											<img src="http://localhost/shivani/Campus/sponsor/uploads/<?php print_r($data['image']); ?>" alt="">
-										</a>
                                         <?php }else if($data['user_type'] == 4) {?>
-										<a href="blog-post.html">
 											<img src="http://localhost/shivani/Campus/alumni/uploads/<?php print_r($data['image']); ?>" alt="">
-										</a>
-                                        <?php }?>
+										<?php }?>
 									</div>
 									<h4><?php print_r($data['text']); ?></h4>
 									<div>
@@ -172,8 +164,8 @@
 
 											if($like != null){
 												if(in_array($userid,$like)){ ?>
-													<div class="pull-left like" id="dislike<?php print_r($data['id']); ?>" onclick="likepost(<?php print_r($data['id']);?>)">
-														<button class="fa fa-thumbs-down dislike-btn" d_likeid="<?php print_r($data['id']);?>">
+													<div class="pull-left like" id="dislike<?php print_r($data['id']); ?>">
+														<button class="fa fa-thumbs-down dislike-btn" d_likeid="<?php print_r($data['id']);?>" onclick="likepost(<?php print_r($data['id']);?>)>
 													</div>
 											<?php	
 												}else{ ?>
@@ -467,10 +459,65 @@
                 dataType:"json",
                 contentType:"application/json",
 				success:function(response){
-					console.log(response);
+					 data = [];
+					$.each(response, function (key, val) {
+						if(val.user_type == 1){
+							images = '<img src="http://localhost/shivani/Campus/student/uploads/'+val.image+'">';
+						}else if(val["user_type"] == 2){
+							images = '<img src="http://localhost/shivani/Campus/college/uploads/'+val.image+'">';
+						}else if(val["user_type"] == 3){
+							images = '<img src="http://localhost/shivani/Campus/sponsor/uploads/'+val.image+'">';
+						}else if(val["user_type"] == 4){
+							images = '<img src="http://localhost/shivani/Campus/alumni/uploads/'+val.image+'">';
+						}
+
+						userid = <?php echo $userid; ?>;
+						comment = JSON.parse(val.comments);
+						// console.log(comment);
+						
+						if(comment){
+							$.each(comment, function (ckey,cval){
+								let keys = Object.keys(cval);
+								user = getUser(keys[0]);
+								console.log(user);
+							});
+						}
+
+
+						if(val.likes.includes(userid)){
+							like = '<div class="pull-left like" id="dislike'+val.id+'"><button class="fa fa-thumbs-down dislike-btn" d_likeid="'+val.id+'" onclick="likepost('+val.id+')"></button></div>';
+						}else{
+							like = '<div class="pull-left like" id="like'+val.id+'"><button class="fa fa-thumbs-up like-btn" likeid="'+val.id+'" onclick="likepost('+val.id+')"></button></div>'
+						}
+						
+						html = '<div class="col-md-6"><div class="single-blog"><div class="blog-img"> '+images+'</div><h4>'+val.text+'</h4><div>Posted by:'+val.realname+' </div> <div class="blog-meta">'+like+' </div></div></div></div>';
+						data.push(html);
+					});
+					$('#posts').html(data);
 				}
 			})
 		});
+
+		function getUser(id){
+			var data = {
+				id:id
+			}
+			$.ajax({
+				url:"./userComments.php",
+				type:"post",
+				data:JSON.stringify(data),
+				cache:false,
+                dataType:"json",
+				async:false,
+                contentType:"application/json",
+				success:function(response){
+					name = response[0].realname;
+					// console.log(response);
+				}
+			})
+			// return id;
+			return name;
+		}
     </script>
 		<!-- preloader -->
 		<div id='preloader'><div class='preloader'></div></div>
