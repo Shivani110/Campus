@@ -186,7 +186,7 @@
 											<div id="comment<?php print_r($data['id']); ?>" style="display:none">
 												<input type="text" id="cmnt<?php print_r($data['id']); ?>" name="cmnt" class="cmntbox" value="">
 												<span class="error"><p id="comment_error<?php print_r($data['id']); ?>"></p></span>
-												<button class="btn btn-primary post" onclick="postcomment(<?php print_r($data['id'])?>)">Comment</button>
+												<button class="btn btn-primary post" onclick="postcomment(id=<?php print_r($data['id'])?>)">Comment</button>
 											</div>
 											<div id="showcomments<?php print_r($data['id']); ?>" style="display:none">
 												<?php 
@@ -417,34 +417,42 @@
             });
 		}
 
-		$('.comment').click(function(e){
+		$("body").delegate(".comment", "click", function(e){
+		// $('.comment').click(function(e){
 			var id=$(this).attr('dataid');
 			$('#comment'+id).toggle();
 			$('#showcomments'+id).toggle();
 		})
 
 		const postcomment = function(id){
-			var data = {
-				id: id,
-				userid:<?php echo $userid;?>,
-				comment:$('#cmnt'+id).val(),
-			}
-			$.ajax({
-				url:"./comments.php",
-				type:"post",
-				data:JSON.stringify(data),
-				cache:false,
-                dataType:"json",
-                contentType:"application/json",
-				success:function(response){
-					var comments = data.comment;
-					var username = "<?php print_r($_SESSION['users']['realname']); ?>"
-					var html = '<div>'+username+':'+comments+'</div>';
-					
-					$('#showcomments'+id).append(html);
-					$('#cmnt'+id).val('');
+			var id = id;
+			var comment = $('#cmnt'+id).val();
+			if(comment == null || comment == ''){
+				error = "Please enter";
+				document.getElementById("comment_error"+id).innerHTML = error;
+			}else{
+					var data = {
+					id: id,
+					userid:<?php echo $userid;?>,
+					comment:$('#cmnt'+id).val(),
 				}
-			})
+				$.ajax({
+					url:"./comments.php",
+					type:"post",
+					data:JSON.stringify(data),
+					cache:false,
+					dataType:"json",
+					contentType:"application/json",
+					success:function(response){
+						var comments = data.comment;
+						var username = "<?php print_r($_SESSION['users']['realname']); ?>"
+						var html = '<div>'+username+':'+comments+'</div>';
+						
+						$('#showcomments'+id).append(html);
+						$('#cmnt'+id).val('');
+					}
+				})
+			}
 		}
 		
 		$(".srch-btn").click(function(){
@@ -472,25 +480,33 @@
 						}
 
 						userid = <?php echo $userid; ?>;
-						comment = JSON.parse(val.comments);
-						// console.log(comment);
-						
+
+						if(val.comments != 0){
+							comment = JSON.parse(val.comments);
+						}
+
+						usercomment = [];
 						if(comment){
 							$.each(comment, function (ckey,cval){
 								let keys = Object.keys(cval);
+								let values = Object.values(cval);
 								user = getUser(keys[0]);
-								console.log(user);
+								// console.log(user);
+								ucomment = '<p>'+user+':'+values[0]+'</p>';
+								usercomment.push(ucomment);
+								
 							});
 						}
-
+						// console.log(usercomment);
 
 						if(val.likes.includes(userid)){
 							like = '<div class="pull-left like" id="dislike'+val.id+'"><button class="fa fa-thumbs-down dislike-btn" d_likeid="'+val.id+'" onclick="likepost('+val.id+')"></button></div>';
 						}else{
 							like = '<div class="pull-left like" id="like'+val.id+'"><button class="fa fa-thumbs-up like-btn" likeid="'+val.id+'" onclick="likepost('+val.id+')"></button></div>'
 						}
+						// $.each(usercomment,function(ukey,uval){ console.log(uval); })
 						
-						html = '<div class="col-md-6"><div class="single-blog"><div class="blog-img"> '+images+'</div><h4>'+val.text+'</h4><div>Posted by:'+val.realname+' </div> <div class="blog-meta">'+like+' </div></div></div></div>';
+						html = '<div class="col-md-6"><div class="single-blog"><div class="blog-img"> '+images+'</div><h4>'+val.text+'</h4><div>Posted by:'+val.realname+' </div> <div class="blog-meta">'+like+' <div class="pull-right comment-box"><button class="blog-meta-comments comment" dataid='+val.id+'><i class="fa fa-comments"></i></button><div id="comment'+val.id+'" style="display:none"><input type="text" id="cmnt'+val.id+'" name="cmnt" class="cmntbox" value=""><span class="error"><p id="comment_error'+val.id+'"></p></span><button class="btn btn-primary post" onclick="postcomment('+val.id+')">Comment</button><div id="showcomments'+val.id+'" style="display:none">'+ $.each(usercomment,function(ukey,uval){ uval }) +'</div></div></div></div></div>';
 						data.push(html);
 					});
 					$('#posts').html(data);

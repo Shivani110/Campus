@@ -112,6 +112,8 @@
                                                 <li class="nk-menu-item">
                                                     <a href="college/events.php" class="nk-menu-link"><span class="nk-menu-text">Add Events</span></a>
                                                     <a href="college/allevents.php" class="nk-menu-link"><span class="nk-menu-text">All Events</span></a>
+                                                    <a href="college/eventStar.php" class="nk-menu-link"><span class="nk-menu-text">Events Star</span></a>
+                                                    <a href="college/alleventStar.php" class="nk-menu-link"><span class="nk-menu-text">All Events Star</span></a>
                                                 </li>
                                             </ul>
                                         </li>

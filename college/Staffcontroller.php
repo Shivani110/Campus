@@ -206,6 +206,30 @@
                 }
             }
         }
+
+        public function getEventStar($id){
+            $query = "Select * from event_star where mod_id='$id'";
+            $result = mysqli_query($this->conn,$query);
+            $data = array();
+            
+            if($result->num_rows>0){
+                while($row=$result->fetch_assoc()){
+                    array_push($data,$row);
+                }
+            }
+            return $data;
+        }
+
+        public function eventstar($id){
+            $query = "Select * from event_star where id='$id'";
+            $result = mysqli_query($this->conn,$query);
+            
+            if($result->num_rows>0){
+                while($row=$result->fetch_assoc()){
+                    return $row;
+                }
+            }
+        }
     }
     
     
